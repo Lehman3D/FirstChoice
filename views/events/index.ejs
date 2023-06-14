@@ -1,10 +1,25 @@
 <h2>Search Events</h2>
 <form action="/events" method="GET"> 
-    <label>Name</label>
-    <input type="text" name="name" value="<%= searchOptions.name %>">
+    <div>
+        <label>Name</label>
+        <input type="text" name="name" value="<%= searchOptions.name %>">
+    </div>
+    <div>
+        <label>Venue</label>
+        <select name="venue">
+            <% venues.forEach(venue => { %>
+                
+                <option label="<%= venue.name %>" value="<%= searchOptions.venue %>"></option>
+                
+            <% }) %>
+        </select>
+    </div>
     <button type="submit">Search</button>
 </form>
 <br>
 <% events.forEach(event => { %>
-    <div><%= event.name %></div>
+    <div>
+        <%= event.name %>
+        <img height="150" width="100" src="<%= event.imgPath %>">
+    </div>
 <% }) %>

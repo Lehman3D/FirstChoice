@@ -16,6 +16,7 @@ const bodyParser = require('body-parser');
 // Router files
 const indexRouter = require('./routes/index')
 const eventRouter = require('./routes/events')
+const venueRouter = require('./routes/venues')
 
 
 // Set up for uploading images
@@ -50,5 +51,6 @@ db.once('open', () => console.log('Connected to Mongoose'))
 
 app.use('/', indexRouter)
 app.use('/events', eventRouter)
+app.use('/venues', venueRouter)
 
 app.listen(process.env.PORT  || 3000)

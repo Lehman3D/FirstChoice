@@ -1,0 +1,14 @@
+<h2>New Venue</h2>
+<% if (typeof error !== 'undefined') { %>
+    <p><%= error %></p>
+  <% } %>
+  
+<form action="/venues" method="POST">
+
+    <%- include('_form_fields') %>
+    <div>
+        <a href="/venues">Cancel</a>
+        <button type="submit">Create</button>
+    </div>
+    
+</form>

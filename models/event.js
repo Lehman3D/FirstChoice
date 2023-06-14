@@ -1,46 +1,25 @@
 const mongoose = require('mongoose')
+const path = require('path')
+const eventImageBasePath = 'uploads/eventImg'
 
 const eventSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
-    }
-/*
+    },
     img: {
-        data: Buffer,
-        contentType: String
-    },
-*/
-/*
-    image_filename: {
-        type:String,
-        required: false
-    },
-    image_path:{
-        type:String,
-        required: false
-    },
-*/
-/*
-    location: {
         type: String,
         required: true
     },
-    address: {
+    startTime: {
         type: String,
-        required: false
+        required: true
     },
-*/
-/*
-    time_start: {
+    endTime: {
         type: String,
-        required: false
+        required: true
     },
-    time_end: {
-        type: String,
-        required: false
-    },
-    ticket_link: {
+    ticketLink: {
         type: String,
         required: false
     },
@@ -48,12 +27,29 @@ const eventSchema = new mongoose.Schema({
         type: Date,
         required: false
     },
+    createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now()
+    },
     desc: {
         type: String,
         required: false
+    },
+    venue: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Venue'
     }
-    */
+    
 
 })
 
+eventSchema.virtual('imgPath').get(function(){
+    if (this.img != null) {
+        return path.join('/', eventImageBasePath, this.img)
+    }
+})
+
 module.exports = mongoose.model('Event', eventSchema)
+module.exports.eventImageBasePath = eventImageBasePath

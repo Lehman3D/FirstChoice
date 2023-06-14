@@ -1,10 +1,6 @@
 <h2>New Event</h2>
 
-<% if (typeof error !== 'undefined') { %>
-    <p><%= error %></p>
-  <% } %>
-
-<form action="/events" method="POST">
+<form action="/events" method="POST" enctype="multipart/form-data">
 
     <%- include('_form_fields') %>
     <div>
