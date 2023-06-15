@@ -5,7 +5,7 @@ const path = require('path')
 const fs = require('fs')
 const Event = require('../models/event')
 const Venue = require('../models/venue')
-//const req = require('express/lib/request')
+const req = require('express/lib/request')
 const uploadPath = path.join('public', Event.eventImageBasePath)
 const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif']
 const upload = multer({
@@ -45,7 +45,7 @@ router.get('/new', async (req, res) => {
 })
 
 // Create Event Route
-router.post('/', upload.single('img'), async (req, res) => {
+router.post('/', upload.single('imgPath'), async (req, res) => {
     const fileName = req.file != null ? req.file.filename : null
     const event = new Event({
         name: req.body.name,

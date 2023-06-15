@@ -8,9 +8,10 @@ const app = express()
 const expressLayouts = require('express-ejs-layouts')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
-// const fs = require('fs');
-// const path = require('path');
-// const multer = require('multer');
+const methodOverride = require('method-override')
+ const fs = require('fs');
+ const path = require('path');
+ const multer = require('multer');
 
 
 // Router files
@@ -19,27 +20,11 @@ const eventRouter = require('./routes/events')
 const venueRouter = require('./routes/venues')
 
 
-// Set up for uploading images
-
-//app.use(bodyParser.json())
-// Set up multer to upload images
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'public/uploads')
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, file.fieldname + '-' + Date.now())
-//     }
-// });
-
-// const upload = multer({ storage: storage });
-
-
-
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
+app.use(methodOverride('_method'))
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
 

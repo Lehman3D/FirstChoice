@@ -1,0 +1,12 @@
+<h2><%= venue.name %></h2>
+<a href="/venues/<%= venue.id %>/edit">Edit</a>
+<%- include('../partials/deleteForm', 
+                {url: '/venues/${venue.id}' }) %>
+<% if (eventsByVenue.length > 0) { %>
+    <h2>Events by Venue</h2>
+    <% eventsByVenue.forEach(event => { %>
+        <div>
+            <img height="150" width="100" src="<%= event.imgPath %>">
+        </div>
+    <% }) %>
+<% } %>

@@ -7,4 +7,9 @@
 <br>
 <% venues.forEach(venue => { %>
     <div><%= venue.name %></div>
+    <a href="/venues/<%= venue.id %>">View</a>
+    <a href="/venues/<%= venue.id %>/edit">Edit</a>
+
+    <%- include('../partials/deleteForm',
+                  { url: `/venues/${venue.id}` }) %>
 <% }) %>
