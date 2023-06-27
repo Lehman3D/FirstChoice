@@ -1,41 +1,53 @@
-<div>
-    <label for="name">Event Name:</label>
-    <input type="text" name="name" placeholder="Name" value="<%= event.name %>" required>
+<div class="form-row">
+    <div class="form-item">
+        <label for="name">Event Name:</label>
+        <input type="text" name="name" placeholder="Name" value="<%= event.name %>" required>
+    </div>
+    <div class="form-item">
+        <label for="venue">Venue:</label>
+        <select name="venue">
+            <% venues.forEach(venue => { %>
+                <% if (venue.id === event.venue) { %>
+                    <option selected label="<%= venue.name %>" value="<%= venue.id %>"></option>
+                <% } else { %>
+                    <option label="<%= venue.name %>" value="<%= venue.id %>"></option>
+                <% } %>
+            <% }) %>
+        </select>
+    </div>
 </div>
-<div>
-    <label for="venue">Venue:</label>
-    <select name="venue">
-        <% venues.forEach(venue => { %>
-            <% if (venue.id === event.venue) { %>
-                <option selected label="<%= venue.name %>" value="<%= venue.id %>"></option>
-            <% } else { %>
-                <option label="<%= venue.name %>" value="<%= venue.id %>"></option>
-            <% } %>
-        <% }) %>
-    </select>
+
+<div class="form-row">
+    <div class="form-item">
+        <label for="startTime">Start Time:</label>
+        <input type="text" name="startTime" placeholder="Start Time" value="<%= event.startTime %>">
+    </div>
+    <div class="form-item">
+        <label for="endTime">End Time:</label>
+        <input type="text" name="endTime" placeholder="End Time" value="<%= event.endTime %>">
+    </div>
 </div>
-<div>
-    <label for="startTime">Start Time:</label>
-    <input type="text" name="startTime" placeholder="Start Time" value="<%= event.startTime %>">
+
+<div class="form-row">
+    <div class="form-item">
+        <label for="ticketLink">Ticket Link:</label>
+        <input type="text" name="ticketLink" placeholder="Link" value="<%= event.ticketLink %>">
+    </div>
+    <div class="form-item">
+        <label for="date">Date:</label>
+        <input type="date" name="date"
+              value="<%= event.date == null ? '' : event.date.toISOString().split('T')[0] %>">
+    </div>
 </div>
-<div>
-    <label for="endTime">End Time:</label>
-    <input type="text" name="endTime" placeholder="End Time" value="<%= event.endTime %>">
+
+<div class="form-row">
+    <div class="form-item form-item-no-grow">
+        <label for="eventImage">Image:</label>
+        <input type="file" name="eventImage" class="filepond">
+    </div>
+    <div class="form-item">
+        <label for="desc">Description:</label>
+        <textarea name="desc" placeholder="Description"><%= event.desc %></textarea>
+    </div>
 </div>
-<div>
-    <label for="ticketLink">Ticket Link:</label>
-    <input type="text" name="ticketLink" placeholder="Link" value="<%= event.ticketLink %>">
-</div>
-<div>
-    <label for="date">Date:</label>
-    <input type="date" name="date"
-          value="<%= event.date == null ? '' : event.date.toISOString().split('T')[0] %>">
-</div>
-<div>
-    <label for="desc">Description:</label>
-    <textarea name="desc" placeholder="Description"><%= event.desc %></textarea>
-</div>
-<div>
-    <label for="eventImage">Image:</label>
-    <input type="file" name="eventImage" class="filepond">
-</div>
+

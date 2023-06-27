@@ -3,9 +3,8 @@
 <form action="/events/<%= event.id %>?_method=PUT" method="POST">
 
     <%- include('_form_fields') %>
-    <div>
-        <a href="/events">Cancel</a>
-        <button type="submit">Update</button>
+    <div class="form-row form-row-end btn-row">
+        <a class="btn btn-danger" href="/events">Cancel</a>
+        <button class="btn btn-primary" type="submit">Update</button>
     </div>
-    
 </form>

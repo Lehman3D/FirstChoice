@@ -7,6 +7,9 @@
 <div>Tickets:  <a href="<%= event.ticketLink %>" target="_blank" rel="noopener noreferrer">Event</a></div>
 <div>Desc:  <%= event.desc %></div>
 
-<a href="/events/<%= event.id %>/edit">Edit</a>
-<%- include('../partials/deleteForm', { url: `/events/${event.id}` }) %>
-<a href="/venues/<%= event.venue.id %>/">View Venue</a>
+<div class="btn-row">
+    <a class="btn btn-primary" href="/events/<%= event.id %>/edit">Edit</a>
+    
+    <a class="btn btn-primary" href="/venues/<%= event.venue.id %>/">View Venue</a>
+    <%- include('../partials/deleteForm', { url: `/events/${event.id}` }) %>
+</div>

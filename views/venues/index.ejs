@@ -1,13 +1,20 @@
 <h2 class="page-header">Search Venue</h2>
 <form action="/venues" method="GET"> 
-    <label>Name</label>
-    <input type="text" name="name" value="<%= searchOptions.name %>">
-    <button type="submit">Search</button>
+    <div class="form-row">
+        <div class="form-item">
+            <label>Name</label>
+            <input type="text" name="name" value="<%= searchOptions.name %>">
+        </div>
+    </div>
+    <div class="form-row form-row-end">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+    
 </form>
 <br>
 <% venues.forEach(venue => { %>
     <div><%= venue.name %></div>
-    <div class="btn-row">
+    <div class="btn-row"> 
         <a class="btn btn-primary" href="/venues/<%= venue.id %>">View</a>
         <a class="btn btn-primary" href="/venues/<%= venue.id %>/edit">Edit</a>
 

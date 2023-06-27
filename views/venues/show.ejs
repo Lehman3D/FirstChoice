@@ -1,9 +1,14 @@
 <h2 class="page-header"><%= venue.name %></h2>
-<a href="/venues/<%= venue.id %>/edit">Edit</a>
+
+<div class="btn-row">
+    <a class="btn btn-primary" href="/venues/<%= venue.id %>/edit">Edit</a>
 <%- include('../partials/deleteForm', 
                 {url: '/venues/${venue.id}' }) %>
+</div>
+
+
 <% if (eventsByVenue.length > 0) { %>
-    <h2>Events by Venue</h2>
+    <h2 class="page-header">Events by Venue</h2>
     <% eventsByVenue.forEach(event => { %>
         <div>
             <a href="/events/<%= event.id %>">
