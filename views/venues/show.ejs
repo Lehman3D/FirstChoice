@@ -1,4 +1,4 @@
-<h2><%= venue.name %></h2>
+<h2 class="page-header"><%= venue.name %></h2>
 <a href="/venues/<%= venue.id %>/edit">Edit</a>
 <%- include('../partials/deleteForm', 
                 {url: '/venues/${venue.id}' }) %>
@@ -6,7 +6,9 @@
     <h2>Events by Venue</h2>
     <% eventsByVenue.forEach(event => { %>
         <div>
-            <img height="150" width="100" src="<%= event.imgPath %>">
+            <a href="/events/<%= event.id %>">
+                <img height="150" width="100" src="<%= event.imgPath %>">
+            </a>
         </div>
     <% }) %>
 <% } %>

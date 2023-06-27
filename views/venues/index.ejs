@@ -1,4 +1,4 @@
-<h2>Search Venue</h2>
+<h2 class="page-header">Search Venue</h2>
 <form action="/venues" method="GET"> 
     <label>Name</label>
     <input type="text" name="name" value="<%= searchOptions.name %>">
@@ -7,9 +7,12 @@
 <br>
 <% venues.forEach(venue => { %>
     <div><%= venue.name %></div>
-    <a href="/venues/<%= venue.id %>">View</a>
-    <a href="/venues/<%= venue.id %>/edit">Edit</a>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/venues/<%= venue.id %>">View</a>
+        <a class="btn btn-primary" href="/venues/<%= venue.id %>/edit">Edit</a>
 
-    <%- include('../partials/deleteForm',
-                  { url: `/venues/${venue.id}` }) %>
+        <%- include('../partials/deleteForm',
+                    { url: `/venues/${venue.id}` }) %>
+    </div>
 <% }) %>
+    

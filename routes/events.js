@@ -86,8 +86,8 @@ console.log('put')
         event.ticketLink = req.body.ticketLink
         event.date = new Date(req.body.date)
         event.desc = req.body.desc
-        if (req.body.imgPath != null && req.body.imgPath !== '') {
-            saveEventImg(event, req.body.imgPath)
+        if (req.body.eventImage != null && req.body.eventImage !== '') {
+            saveImage(event, req.body.eventImage)
         }
         await event.save()
         res.redirect(`/events/${event.id}`)

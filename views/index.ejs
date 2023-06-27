@@ -1,18 +1,22 @@
-Home Page
-<h2>Upcoming Events</h2>
+<h2 class="page-header">Upcoming Events</h2>
 <% events.forEach(event => { %>
     <div>
         <%#= event.name %>
-        <img height="150" width="100" src="<%= event.imgPath %>">
+        <a href="/events/<%= event.id %>">
+            <img height="150" width="100" src="<%= event.imgPath %>">
+        </a>
     </div>
 <% }) %>
 <br>
-<h2>Previous Events</h2>
+<h2 class="page-header">Previous Events</h2>
 <% events.forEach(event => { %>
     
     <div>
         <%#= event.name %>
-        <img height="150" width="100" src="<%= event.imgPath %>">
+        <a href="/events/<%= event.id %>">
+            <img height="150" width="100" src="<%= event.imgPath %>">
+        </a>
+        
     </div>
     
 <% }) %>
