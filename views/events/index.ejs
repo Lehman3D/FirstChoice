@@ -20,12 +20,5 @@
 </form>
 <br>
 <div>
-    <% events.forEach(event => { %>
-        <div>
-            <%= event.name %>
-            <a href="/events/<%= event.id %>">
-                <img height="150" width="100" src="<%= event.imgPath %>">
-            </a>
-        </div>
-    <% }) %>
+    <%- include('../partials/eventGrid', {events: events, large: true}) %> 
 </div>

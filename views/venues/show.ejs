@@ -2,18 +2,16 @@
 
 <div class="btn-row">
     <a class="btn btn-primary" href="/venues/<%= venue.id %>/edit">Edit</a>
-<%- include('../partials/deleteForm', 
+    <%- include('../partials/deleteForm', 
                 {url: '/venues/${venue.id}' }) %>
+</div>
+<div class="btn-row">
+    <a class="btn btn-danger" href="/venues">Cancel</a>
 </div>
 
 
 <% if (eventsByVenue.length > 0) { %>
     <h2 class="page-header">Events by Venue</h2>
-    <% eventsByVenue.forEach(event => { %>
-        <div>
-            <a href="/events/<%= event.id %>">
-                <img height="150" width="100" src="<%= event.imgPath %>">
-            </a>
-        </div>
-    <% }) %>
+    <%- include('../partials/eventGrid', {events: eventsByVenue}) %> 
+    <!-- to make it large add , large: true to the params above -->
 <% } %>

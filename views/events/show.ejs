@@ -1,15 +1,34 @@
 <h2 class="page-header"><%= event.name %></h2>
-<img src="<%= event.imgPath %>">
-<div>Venue:  <%= event.venue.name %></div>
-<div>Address:  <%= event.venue.address %></div>
-<div>Date:  <%= event.date.toDateString() %></div>
-<div>Time: <%= event.startTime %> - <%= event.endTime %></div>
-<div>Tickets:  <a href="<%= event.ticketLink %>" target="_blank" rel="noopener noreferrer">Event</a></div>
-<div>Desc:  <%= event.desc %></div>
+<div class="event-details">
+    <div>
+        <img class="event-image" src="<%= event.imgPath %>">
+        <div class="event-details-btn-grid">
+            <a class="btn btn-primary" href="/events/<%= event.id %>/edit">Edit</a>
+            <%- include('../partials/deleteForm', { url: `/events/${event.id}` }) %>
+            <a class="btn btn-primary event-details-venue-button" href="/venues/<%= event.venue.id %>/">View Venue</a>
+            
+        </div>
+        
+    </div>
 
-<div class="btn-row">
-    <a class="btn btn-primary" href="/events/<%= event.id %>/edit">Edit</a>
-    
-    <a class="btn btn-primary" href="/venues/<%= event.venue.id %>/">View Venue</a>
-    <%- include('../partials/deleteForm', { url: `/events/${event.id}` }) %>
+    <div class="event-details-grid">
+        <div class="event-details-label">Venue:</div>
+        <div><%= event.venue.name %></div>
+        <div class="event-details-label">Address:</div>
+        <div><%= event.venue.address %></div>
+        <div class="event-details-label">Date:</div>
+        <div><%= event.date.toDateString() %></div>
+        <div class="event-details-label">Time:</div>
+        <div><%= event.startTime %> - <%= event.endTime %></div>
+        <div class="event-details-label">Tickets:</div>
+        <div><a href="<%= event.ticketLink %>" target="_blank" rel="noopener noreferrer">Event</a></div>
+        <div class="event-details-label">Desc:</div>
+        <div><%= event.desc %></div>
+    </div>
 </div>
+<br>
+<br>
+<div class="btn-row">
+    <a class="btn btn-danger" href="/events">Cancel</a>
+</div>
+

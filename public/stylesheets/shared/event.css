@@ -1,0 +1,60 @@
+:root {
+    --event-image-width: 200px;
+    --event-image-width-large: 325px;
+    --event-image-aspect-ratio: 0.75%;
+}
+
+.event-image {
+    width: var(--event-image-width);
+    height: calc(var(--event-image-width) / var(--event-image-aspect-ratio));
+}
+
+.event-image-large {
+    --event-image-width: var(--event-image-width-large);
+}
+
+.event-grid {
+    display: grid;
+    justify-content: center;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(auto-fill, var(--event-image-width));
+}
+
+.event-grid-large {
+    grid-template-columns: repeat(auto-fill, var(--event-image-width-large));
+}
+
+.event-details {
+    display: flex;
+}
+
+.event-details-label {
+    font-size: 1.2rem;
+    font-weight: 500;
+    align-self: flex-start;
+}
+
+.event-details-grid {
+    display: grid;
+    align-content: flex-start;
+    align-items: center;
+    grid-template-columns: auto auto;
+    gap: 1rem;
+}
+
+.event-details-btn-grid {
+    display: grid;
+    justify-items: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    grid-template-areas: 
+        "edit delete"
+        "venue venue";
+    gap: .5rem;
+    margin-top: .5rem;
+}
+
+.event-details-venue-button {
+    grid-area: venue;
+    justify-self: stretch;
+}

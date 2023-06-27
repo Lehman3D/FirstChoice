@@ -13,13 +13,15 @@
 </form>
 <br>
 <% venues.forEach(venue => { %>
-    <div><%= venue.name %></div>
-    <div class="btn-row"> 
-        <a class="btn btn-primary" href="/venues/<%= venue.id %>">View</a>
-        <a class="btn btn-primary" href="/venues/<%= venue.id %>/edit">Edit</a>
-
-        <%- include('../partials/deleteForm',
-                    { url: `/venues/${venue.id}` }) %>
+    <div class="venue-row">
+        <div class="venue-name"><%= venue.name %></div>
+        <div class="btn-row"> 
+            <a class="btn btn-primary" href="/venues/<%= venue.id %>">View</a>
+            <a class="btn btn-primary" href="/venues/<%= venue.id %>/edit">Edit</a>
+    
+            <%- include('../partials/deleteForm',
+                        { url: `/venues/${venue.id}` }) %>
+        </div>
     </div>
 <% }) %>
     
