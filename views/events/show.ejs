@@ -1,0 +1,12 @@
+<h2><%= event.name %></h2>
+<img src="<%= event.imgPath %>">
+<div>Venue:  <%= event.venue.name %></div>
+<div>Address:  <%= event.venue.address %></div>
+<div>Date:  <%= event.date.toDateString() %></div>
+<div>Time: <%= event.startTime %> - <%= event.endTime %></div>
+<div>Tickets:  <a href="<%= event.ticketLink %>" target="_blank" rel="noopener noreferrer">Event</a></div>
+<div>Desc:  <%= event.desc %></div>
+
+<a href="/events/<%= event.id %>/edit">Edit</a>
+<%- include('../partials/deleteForm', { url: `/events/${event.id}` }) %>
+<a href="/venues/<%= event.venue.id %>/">View Venue</a>

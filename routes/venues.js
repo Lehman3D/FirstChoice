@@ -62,7 +62,7 @@ router.get('/:id/edit', async (req, res) => {
         const venue= await Venue.findById(req.params.id)
         res.render('venues/edit', { venue: venue })
     } catch {
-        res.redirect('/authors')
+        res.redirect('/venues')
     }
 })
 

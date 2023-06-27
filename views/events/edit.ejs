@@ -1,0 +1,11 @@
+<h2>Edit Event</h2>
+
+<form action="/events/<%= event.id %>?_method=PUT" method="POST">
+
+    <%- include('_form_fields') %>
+    <div>
+        <a href="/events">Cancel</a>
+        <button type="submit">Update</button>
+    </div>
+    
+</form>

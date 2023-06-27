@@ -9,9 +9,7 @@ const expressLayouts = require('express-ejs-layouts')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override')
- const fs = require('fs');
- const path = require('path');
- const multer = require('multer');
+
 
 
 // Router files

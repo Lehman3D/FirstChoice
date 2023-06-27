@@ -8,9 +8,7 @@
         <label>Venue</label>
         <select name="venue">
             <% venues.forEach(venue => { %>
-                
                 <option label="<%= venue.name %>" value="<%= searchOptions.venue %>"></option>
-                
             <% }) %>
         </select>
     </div>
@@ -21,7 +19,11 @@
     <% events.forEach(event => { %>
         <div>
             <%= event.name %>
-            <img height="150" width="100" src="<%= event.imgPath %>">
+            <a href="/events/<%= event.id %>">
+                <img height="150" width="100" src="<%= event.imgPath %>">
+            </a>
+            <%- include('../partials/deleteForm',
+                  { url: `/events/${event.id}` }) %>
         </div>
     <% }) %>
 </div>

@@ -1,13 +1,15 @@
 const mongoose = require('mongoose')
-const path = require('path')
-const eventImageBasePath = 'uploads/eventImg'
 
 const eventSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
     },
-    img: {
+    eventImage: {
+        type: Buffer,
+        required: true
+    },
+    eventImageType: {
         type: String,
         required: true
     },
@@ -41,15 +43,12 @@ const eventSchema = new mongoose.Schema({
         required: true,
         ref: 'Venue'
     }
-    
-
 })
 
 eventSchema.virtual('imgPath').get(function(){
-    if (this.img != null) {
-        return path.join('/', eventImageBasePath, this.img)
+    if (this.eventImage != null && this.eventImageType != null) {
+        return `data:${this.eventImageType};charset=utf-8;base64,${this.eventImage.toString('base64')}`
     }
 })
 
 module.exports = mongoose.model('Event', eventSchema)
-module.exports.eventImageBasePath = eventImageBasePath

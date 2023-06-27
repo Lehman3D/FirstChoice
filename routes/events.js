@@ -1,19 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const multer = require('multer')
-const path = require('path')
-const fs = require('fs')
 const Event = require('../models/event')
 const Venue = require('../models/venue')
-const req = require('express/lib/request')
-const uploadPath = path.join('public', Event.eventImageBasePath)
 const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif']
-const upload = multer({
-    dest: uploadPath,
-    fileFilter: (req, file, callback) => {
-        callback(null, imageMimeTypes.includes(file.mimetype) )
-    }
-})
 
 // All Events Route
 router.get('/', async (req, res) => {
@@ -45,8 +34,7 @@ router.get('/new', async (req, res) => {
 })
 
 // Create Event Route
-router.post('/', upload.single('imgPath'), async (req, res) => {
-    const fileName = req.file != null ? req.file.filename : null
+router.post('/', async (req, res) => {
     const event = new Event({
         name: req.body.name,
         venue: req.body.venue,
@@ -54,38 +42,118 @@ router.post('/', upload.single('imgPath'), async (req, res) => {
         endTime: req.body.endTime,
         ticketLink: req.body.ticketLink,
         date: new Date(req.body.date),
-        desc: req.body.desc,
-        img: fileName
+        desc: req.body.desc
     })
+    saveImage(event, req.body.eventImage)
     try{
         const newEvent = await event.save()
-        // res.redirect('events/${newEvent.id}')
-        res.redirect('events')
+        res.redirect(`events/${newEvent.id}`)
     } catch (err) {
-        if (event.img != null) {
-            removeEventImg(event.img)
-        }
         renderNewPage(res, event, true, err)
     }
 })
 
-function removeEventImg(fileName) {
-    fs.unlink(path.join(uploadPath, fileName), err => {
-        if (err) console.error(err)
-    })
-}
+// Show a Event
+router.get('/:id', async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id).populate('venue').exec()
+        res.render('events/show', { event: event })
+    } catch {
+        res.redirect('/')
+    }
+})
+
+// Edit Event Route
+router.get('/:id/edit', async (req, res) => {
+    try{
+        const event= await Event.findById(req.params.id)
+        renderEditPage(res, event)
+    } catch {
+        res.redirect('/event')
+    }
+})
+
+// Update Event Route
+router.put('/:id', async (req, res) => {
+console.log('put')
+    let event
+    try{
+        event = await Event.findById(req.params.id)
+        event.name = req.body.name
+        event.venue = req.body.venue
+        event.startTime = req.body.startTime
+        event.endTime = req.body.endTime
+        event.ticketLink = req.body.ticketLink
+        event.date = new Date(req.body.date)
+        event.desc = req.body.desc
+        if (req.body.imgPath != null && req.body.imgPath !== '') {
+            saveEventImg(event, req.body.imgPath)
+        }
+        await event.save()
+        res.redirect(`/events/${event.id}`)
+    } catch (err) {
+console.log(err)
+        if (event != null) {
+            renderEditPage(res, event, true, err)
+        } else {
+            redirect('/')
+        }
+    }
+})
+
+// Delete Venue Route
+router.delete('/:id', async (req, res) => {
+    let event
+    try{
+        event = await Event.findById(req.params.id)
+        await event.deleteOne({ _id: req.params.id })
+        res.redirect('/events')
+    } catch  {
+        if (event != null) {
+            res.render('events/show', {
+                event: event,
+                errorMessage: 'Could not remove event'
+            })
+        } else {
+            res.redirect('/')
+        }
+    }
+})
 
 async function renderNewPage(res, event, hasError = false, err) {
+    renderFormPage(res, event, 'new', hasError, err)
+}
+
+async function renderEditPage(res, event, hasError = false, err) {
+    renderFormPage(res, event, 'edit', hasError, err)
+}
+
+async function renderFormPage(res, event, form, hasError = false, err) {
     try {
         const venues = await Venue.find({})
         const params = {
             venues: venues,
             event: event
         }
-        if (hasError) params.errorMessage = 'Error Creating Event' + err
-        res.render('events/new', params)
+        if (hasError) {
+            if (form === 'edit') {
+                params.errorMessage = 'Error Updating Book' + err
+              } else {
+                params.errorMessage = 'Error Creating Book' + err
+              }
+        }
+        res.render(`events/${form}`, params)
     } catch {
         res.redirect('/events')
+    }
+}
+
+function saveImage( event, imageEncoded) {
+    if(imageEncoded == null) return
+    const image = JSON.parse(imageEncoded)
+    if (image != null && imageMimeTypes.includes(image.type)) {
+        event.eventImage = new Buffer.from(image.data, 'base64')
+        event.eventImageType = image.type
     }
 }
 
